@@ -8,10 +8,10 @@ public class Ball : MonoBehaviour
     public float ballForce;
     private Rigidbody rigidbody;
     private bool thrown = false;
-    public float horizontalSpeed;
     public GameObject playerReference;
     public float kickingDistance = 4.7f;
     public float movementSpeed = 5f;
+    public GameObject ballPivot;
     bool setForKick = false;
     Vector3 lastPlayerPosition;
     bool run = false;
@@ -20,13 +20,13 @@ public class Ball : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        GameManager.Instance.onFinishLineCrossed += SetForKick;
     }
 
     // Update is called once per frame
     void Update()
     {
-        BallMovement();
-        Debug.Log(Vector3.Distance(transform.position, playerReference.transform.position));
+        //Debug.Log(Vector3.Distance(transform.position, playerReference.transform.position));
 
         if(Input.GetKeyDown(KeyCode.R)){
             Animator playerAnimator = playerReference.GetComponent<Animator>();
@@ -36,34 +36,22 @@ public class Ball : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.Space)){
-            setForKick = true;
-            lastPlayerPosition = playerReference.transform.position;
-            Animator playerAnimator = playerReference.GetComponent<Animator>();
-
-            if(playerAnimator != null){
-                playerAnimator.applyRootMotion = false;
-                playerAnimator.SetBool("Running", false);
-                playerAnimator.applyRootMotion = true;
-                playerAnimator.SetTrigger("Kick");
-            }
+            SetForKick();
         }
 
         if(setForKick){
-            if(Vector3.Distance(transform.position, lastPlayerPosition)<4.7){
-                 transform.position += transform.forward * Time.deltaTime * movementSpeed;
+            if(Vector3.Distance(transform.position, lastPlayerPosition) < 4.7){
+                 ballPivot.transform.position += transform.forward * Time.deltaTime * movementSpeed;
             }else{
                 setForKick = false;
             }
         }
     }
 
-    void BallMovement(){
-        if(!thrown){
-            float xMovement = Input.GetAxis("Horizontal");
-            Vector3 position = transform.position;
-            position.x += xMovement * horizontalSpeed;
-            transform.position = position;
-        }
+    public void SetForKick(){
+        setForKick = true;
+        lastPlayerPosition = playerReference.transform.position;
+
     }
 
     public void PerformKick(){
@@ -75,4 +63,5 @@ public class Ball : MonoBehaviour
            rigidbody.AddForce(transform.forward * ballForce);
         }
     }
+    
 }

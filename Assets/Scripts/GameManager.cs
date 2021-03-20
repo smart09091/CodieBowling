@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
+    void Awake(){
+        Instance = this;
+    }
+
+    public event Action onFinishLineCrossed;
+
+    public void  FinishLineCrossed(){
+        if(onFinishLineCrossed != null){
+            onFinishLineCrossed();
+        }
+    }
+}
