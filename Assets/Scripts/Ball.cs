@@ -31,6 +31,7 @@ public class Ball : MonoBehaviour
         GameEvents.Instance.onFinishLineCrossed += SetForKick;
         GameEvents.Instance.onGaugeForceApplied += SetBallForce;
         GameEvents.Instance.onBallObstacleHit += HandleBallObstacleHit;
+        GameEvents.Instance.onWallObstacleHit += HandleWallObstacleHit;
     }
 
     // Update is called once per frame
@@ -106,6 +107,12 @@ public class Ball : MonoBehaviour
                 ballScale = minBallScale;
             }
         }
+
+        SetBallScale(ballScale);
+    }
+
+    public void HandleWallObstacleHit(int wallType){
+        ballType = wallType;
 
         SetBallScale(ballScale);
     }

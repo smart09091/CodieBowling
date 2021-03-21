@@ -12,6 +12,7 @@ public class GameEvents : MonoBehaviour
     public event Action<int> onScoreUpdated;
     public event Action onRoundFinished;
     public event Action<int, float> onBallObstacleHit;
+    public event Action<int> onWallObstacleHit;
     void Awake(){
         Instance = this;
     }
@@ -46,9 +47,15 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public void OnBallObstacleHit(int ballType, float scaleValue){
+    public void BallObstacleHit(int ballType, float scaleValue){
         if(onBallObstacleHit != null){
             onBallObstacleHit(ballType, scaleValue);
+        }
+    }
+
+    public void WallObstacleHit(int wallType){
+        if(onWallObstacleHit != null){
+            onWallObstacleHit(wallType);
         }
     }
 }

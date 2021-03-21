@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class PlayerMaterialController : MonoBehaviour
 {
+    public SkinnedMeshRenderer playerMeshRenderer;
+    public MeshRenderer ballMeshRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameEvents.Instance.onWallObstacleHit += ChangePlayerMaterials;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void ChangePlayerMaterials(int wallType){
+        playerMeshRenderer.material = MaterialManager.Instance.playerMaterials[wallType];
+        ballMeshRenderer.material = MaterialManager.Instance.ballObstacleMaterials[wallType];
     }
 }

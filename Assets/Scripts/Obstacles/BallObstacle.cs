@@ -18,7 +18,7 @@ public class BallObstacle : MonoBehaviour
         if(interactible){
             if(other.tag == "Ball"){
                 gameObject.SetActive(false);
-                GameEvents.Instance.OnBallObstacleHit(ballType, ballScaleValue);
+                GameEvents.Instance.BallObstacleHit(ballType, ballScaleValue);
                 levelBallObstacleReference.DeactivateObstacles();
             }
         }
