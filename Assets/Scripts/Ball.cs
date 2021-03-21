@@ -20,7 +20,8 @@ public class Ball : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        GameManager.Instance.onFinishLineCrossed += SetForKick;
+        GameEvents.Instance.onFinishLineCrossed += SetForKick;
+        GameEvents.Instance.onGaugeForceApplied += SetBallForce;
     }
 
     // Update is called once per frame
@@ -62,6 +63,10 @@ public class Ball : MonoBehaviour
            //rigidbody.velocity = new Vector3(0,0,speed);
            rigidbody.AddForce(transform.forward * ballForce);
         }
+    }
+
+    public void SetBallForce(float force){
+        ballForce = force;
     }
     
 }

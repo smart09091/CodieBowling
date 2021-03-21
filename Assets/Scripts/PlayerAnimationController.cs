@@ -8,7 +8,7 @@ public class PlayerAnimationController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Instance.onFinishLineCrossed += SetForKick;
+        GameEvents.Instance.onFinishLineCrossed += SetForKick;
         gfx.SetBool("Running", true);
     }
 

@@ -9,7 +9,7 @@ public class FinishLine : MonoBehaviour
     {
         if(other.tag == "Player"){
             Debug.Log("Player has crossed finishline");
-            GameManager.Instance.FinishLineCrossed();
+            GameEvents.Instance.FinishLineCrossed();
         }
     }
 }

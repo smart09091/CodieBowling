@@ -9,12 +9,4 @@ public class GameManager : MonoBehaviour
     void Awake(){
         Instance = this;
     }
-
-    public event Action onFinishLineCrossed;
-
-    public void  FinishLineCrossed(){
-        if(onFinishLineCrossed != null){
-            onFinishLineCrossed();
-        }
-    }
 }
