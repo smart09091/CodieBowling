@@ -9,7 +9,6 @@ public class PinGroundCheck : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Ground"){
-            Debug.Log("Entered Ground");
             pinReference.RemoveScore();
         }
     }
@@ -17,7 +16,6 @@ public class PinGroundCheck : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if(other.tag == "Ground"){
-            Debug.Log("Exited Ground");
             pinReference.RecordScore();
         }
     }

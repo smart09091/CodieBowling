@@ -11,6 +11,7 @@ public class GameEvents : MonoBehaviour
     public event Action onKickStart;
     public event Action<int> onScoreUpdated;
     public event Action onRoundFinished;
+    public event Action<int, float> onBallObstacleHit;
     void Awake(){
         Instance = this;
     }
@@ -40,9 +41,14 @@ public class GameEvents : MonoBehaviour
     }
 
     public void RoundFinished(){
-        Debug.Log("RoundFinished");
         if(onRoundFinished != null){
             onRoundFinished();
+        }
+    }
+
+    public void OnBallObstacleHit(int ballType, float scaleValue){
+        if(onBallObstacleHit != null){
+            onBallObstacleHit(ballType, scaleValue);
         }
     }
 }
