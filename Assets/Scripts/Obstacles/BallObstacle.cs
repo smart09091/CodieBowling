@@ -8,6 +8,7 @@ public class BallObstacle : MonoBehaviour
     [Range(0,2)]
     public int ballType;
     public float ballScaleValue = .5f;
+    public float ballForceValue = 1250f;
     public bool interactible = true;
     void Start(){
         AssignObstacleMaterial();
@@ -18,7 +19,7 @@ public class BallObstacle : MonoBehaviour
         if(interactible){
             if(other.tag == "Ball"){
                 gameObject.SetActive(false);
-                GameEvents.Instance.BallObstacleHit(ballType, ballScaleValue);
+                GameEvents.Instance.BallObstacleHit(ballType, ballScaleValue, ballForceValue);
                 levelBallObstacleReference.DeactivateObstacles();
             }
         }

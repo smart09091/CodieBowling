@@ -13,8 +13,11 @@ public class Pin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GameEvents.Instance.onRoundFinished += TurnOffPhysics;
         GameEvents.Instance.onRoundFinished += DisabeRecordScore;
+    }
+    
+    void OnDestroy() {
+        GameEvents.Instance.onRoundFinished -= DisabeRecordScore;
     }
 
     // Update is called once per frame
@@ -45,12 +48,5 @@ public class Pin : MonoBehaviour
     }
     public void DisabeRecordScore(){
         recordScore = false;
-    }
-    public void TurnOnPhysics(){
-        rigidbody.isKinematic = false;
-    }
-
-    public void TurnOffPhysics(){
-        rigidbody.isKinematic = true;
     }
 }

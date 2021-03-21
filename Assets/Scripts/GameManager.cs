@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     public int score;
     void Awake(){
         Instance = this;
+
+    }
+
+    void Start(){
+        GameEvents.Instance.InitCompleted();
     }
 
     public void SetScore(int value){

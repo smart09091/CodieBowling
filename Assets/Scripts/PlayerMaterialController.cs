@@ -11,6 +11,9 @@ public class PlayerMaterialController : MonoBehaviour
     {
         GameEvents.Instance.onWallObstacleHit += ChangePlayerMaterials;
     }
+    void OnDestroy() {
+        GameEvents.Instance.onWallObstacleHit -= ChangePlayerMaterials;
+    }
 
     public void ChangePlayerMaterials(int wallType){
         playerMeshRenderer.material = MaterialManager.Instance.playerMaterials[wallType];

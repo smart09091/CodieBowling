@@ -34,6 +34,14 @@ public class Ball : MonoBehaviour
         GameEvents.Instance.onWallObstacleHit += HandleWallObstacleHit;
     }
 
+    void OnDestroy() {
+
+        GameEvents.Instance.onFinishLineCrossed -= SetForKick;
+        GameEvents.Instance.onGaugeForceApplied -= SetBallForce;
+        GameEvents.Instance.onBallObstacleHit -= HandleBallObstacleHit;
+        GameEvents.Instance.onWallObstacleHit -= HandleWallObstacleHit;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -91,7 +99,7 @@ public class Ball : MonoBehaviour
         ballForce = force;
     }
 
-    public void HandleBallObstacleHit(int ballType, float scaleValue){
+    public void HandleBallObstacleHit(int ballType, float scaleValue, float ballForceValue){
         if(this.ballType == ballType){
             Debug.Log("Increase Ball Size");
             ballScale += scaleValue;
@@ -99,6 +107,9 @@ public class Ball : MonoBehaviour
             if(ballScale > maxBallScale){
                 ballScale = maxBallScale;
             }
+
+            GameEvents.Instance.GaugeForceUpdated(ballForceValue);
+
         }else{
             Debug.Log("Decrease Ball Size");
             ballScale -= scaleValue;
@@ -106,6 +117,8 @@ public class Ball : MonoBehaviour
             if(ballScale < minBallScale){
                 ballScale = minBallScale;
             }
+
+            GameEvents.Instance.GaugeForceUpdated(-ballForceValue);
         }
 
         SetBallScale(ballScale);

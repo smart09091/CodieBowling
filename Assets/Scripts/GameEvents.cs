@@ -6,15 +6,30 @@ using UnityEngine;
 public class GameEvents : MonoBehaviour
 {
     public static GameEvents Instance;
+    public event Action onInitCompleted;
+    public event Action onGameStart;
     public event Action onFinishLineCrossed;
     public event Action<float> onGaugeForceApplied;
     public event Action onKickStart;
     public event Action<int> onScoreUpdated;
     public event Action onRoundFinished;
-    public event Action<int, float> onBallObstacleHit;
+    public event Action<int, float, float> onBallObstacleHit;
+    public event Action<float> onGaugeForceUpdated;
     public event Action<int> onWallObstacleHit;
     void Awake(){
         Instance = this;
+    }
+
+    public void InitCompleted(){
+        if(onInitCompleted != null){
+            onInitCompleted();
+        }
+    }
+
+    public void GameStart(){
+        if(onGameStart != null){
+            onGameStart();
+        }
     }
 
     public void  FinishLineCrossed(){
@@ -47,9 +62,15 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public void BallObstacleHit(int ballType, float scaleValue){
+    public void BallObstacleHit(int ballType, float scaleValue, float ballForceValue){
         if(onBallObstacleHit != null){
-            onBallObstacleHit(ballType, scaleValue);
+            onBallObstacleHit(ballType, scaleValue, ballForceValue);
+        }
+    }
+
+    public void GaugeForceUpdated(float ballForceValue){
+        if(onGaugeForceUpdated != null){
+            onGaugeForceUpdated(ballForceValue);
         }
     }
 

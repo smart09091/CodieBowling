@@ -13,7 +13,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameEvents.Instance.onFinishLineCrossed += StopPlayerMovement;
+        GameEvents.Instance.onGameStart += EnablePlayerMovement;
+        GameEvents.Instance.onFinishLineCrossed += DisablePlayerMovement;
+    }
+    void OnDestroy() {
+        GameEvents.Instance.onFinishLineCrossed -= DisablePlayerMovement;
     }
 
     // Update is called once per frame
@@ -40,8 +44,11 @@ public class PlayerController : MonoBehaviour
             playerSideMovementPivot.transform.position = playerSideMovementPivotPosition;
         }
     }
+    void EnablePlayerMovement(){
+        running = true;
+    }
 
-    void StopPlayerMovement(){
+    void DisablePlayerMovement(){
         running = false;
     }
 }

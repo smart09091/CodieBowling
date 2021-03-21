@@ -9,7 +9,11 @@ public class PlayerAnimationController : MonoBehaviour
     void Start()
     {
         GameEvents.Instance.onFinishLineCrossed += SetForKick;
-        gfx.SetBool("Running", true);
+        GameEvents.Instance.onGameStart += EnableRun;
+    }
+    void OnDestroy() {
+        GameEvents.Instance.onFinishLineCrossed -= SetForKick;
+        GameEvents.Instance.onGameStart += EnableRun;
     }
 
     // Update is called once per frame
@@ -17,6 +21,15 @@ public class PlayerAnimationController : MonoBehaviour
     {
         
     }
+
+    public void EnableRun(){
+        gfx.SetBool("Running", true);
+    }
+
+    public void DisableRun(){
+        gfx.SetBool("Running", false);
+    }
+
     public void SetForKick(){
 
         if(gfx != null){
