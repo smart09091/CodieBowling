@@ -13,7 +13,19 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
+        //GameEvents.Instance.Initialize();
+        GameEvents.Instance.onNextLevel += NextLevel;
+        Invoke("Initialize", .25f);
         GameEvents.Instance.InitCompleted();
+    }
+
+    public void Initialize(){
+        Debug.Log("Initialize");
+        GameEvents.Instance.Initialize();
+    }
+
+    public void NextLevel(){
+        Invoke("Initialize", .25f);
     }
 
     public void SetScore(int value){

@@ -6,6 +6,9 @@ using UnityEngine;
 public class GameEvents : MonoBehaviour
 {
     public static GameEvents Instance;
+    public event Action onInitialize;
+    public event Action<int> onLevelGenerated;
+    public event Action onGeneratePinsFinished;
     public event Action onInitCompleted;
     public event Action onGameStart;
     public event Action onFinishLineCrossed;
@@ -16,13 +19,30 @@ public class GameEvents : MonoBehaviour
     public event Action<int, float, float> onBallObstacleHit;
     public event Action<float> onGaugeForceUpdated;
     public event Action<int> onWallObstacleHit;
+    public event Action onNextLevel;
     void Awake(){
         Instance = this;
+    }
+    public void Initialize(){
+        if(onInitialize != null){
+            onInitialize();
+        }
     }
 
     public void InitCompleted(){
         if(onInitCompleted != null){
             onInitCompleted();
+        }
+    }
+    public void LevelGenerated(int currentLevel){
+        if(onLevelGenerated != null){
+            onLevelGenerated(currentLevel);
+        }
+    }
+
+    public void GeneratePinsFinished(){
+        if(onGeneratePinsFinished != null){
+            onGeneratePinsFinished();
         }
     }
 
@@ -78,5 +98,12 @@ public class GameEvents : MonoBehaviour
         if(onWallObstacleHit != null){
             onWallObstacleHit(wallType);
         }
+    }
+
+    public void NextLevel(){
+        if(onNextLevel != null){
+            onNextLevel();
+        }
+        
     }
 }

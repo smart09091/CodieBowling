@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelWallObstacle : MonoBehaviour
+public class LevelWallObstacle : LevelBlock
 {
     public WallObstacle wallObstacle;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public bool isDynamic = true;
+    
+    void Start(){
+        GameEvents.Instance.onGameStart += RandomizeWall;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    
+    void OnDestroy(){
+        GameEvents.Instance.onGameStart -= RandomizeWall;
+    }
+    
+    public void RandomizeWall(){
+        if(isDynamic){
+            wallObstacle.wallType = Random.Range(0,3);
+            wallObstacle.gameObject.SetActive(true);
+        }
     }
 }

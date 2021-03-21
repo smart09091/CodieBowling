@@ -12,6 +12,11 @@ public class BallObstacle : MonoBehaviour
     public bool interactible = true;
     void Start(){
         AssignObstacleMaterial();
+        GameEvents.Instance.onGameStart += AssignObstacleMaterial;
+    }
+    void OnDestroy(){
+        AssignObstacleMaterial();
+        GameEvents.Instance.onGameStart -= AssignObstacleMaterial;
     }
 
     private void OnTriggerEnter(Collider other)

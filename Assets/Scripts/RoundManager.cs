@@ -5,6 +5,11 @@ using UnityEngine;
 public class RoundManager : MonoBehaviour
 {
     public float roundEndTimer;
+    bool roundFinished = false;
+
+    void Start(){
+        GameEvents.Instance.onGameStart += ResetRound;
+    }
 
     void FinishRound(){
         Debug.Log("FinishRound");
@@ -13,9 +18,16 @@ public class RoundManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Ball")
-        {
-            Invoke("FinishRound", roundEndTimer);
+        if(!roundFinished){
+            if(other.transform.tag == "Ball")
+            {
+                roundFinished = true;
+                Invoke("FinishRound", roundEndTimer);
+            }
         }
+    }
+
+    void ResetRound(){
+        roundFinished = false;
     }
 }

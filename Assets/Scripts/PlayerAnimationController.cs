@@ -10,10 +10,14 @@ public class PlayerAnimationController : MonoBehaviour
     {
         GameEvents.Instance.onFinishLineCrossed += SetForKick;
         GameEvents.Instance.onGameStart += EnableRun;
+        GameEvents.Instance.onRoundFinished += PerformVictoryDance;
+        GameEvents.Instance.onNextLevel += ResetAnimator;
     }
     void OnDestroy() {
         GameEvents.Instance.onFinishLineCrossed -= SetForKick;
-        GameEvents.Instance.onGameStart += EnableRun;
+        GameEvents.Instance.onGameStart -= EnableRun;
+        GameEvents.Instance.onRoundFinished -= PerformVictoryDance;
+        GameEvents.Instance.onNextLevel -= ResetAnimator;
     }
 
     // Update is called once per frame
@@ -23,6 +27,7 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
     public void EnableRun(){
+        Debug.Log("EnableRun");
         gfx.SetBool("Running", true);
     }
 
@@ -38,5 +43,13 @@ public class PlayerAnimationController : MonoBehaviour
             gfx.applyRootMotion = true;
             gfx.SetTrigger("Kick");
         }
+    }
+    public void PerformVictoryDance(){
+            gfx.SetTrigger("Victory");
+    }
+
+    public void ResetAnimator(){
+        gfx.applyRootMotion = false;
+        gfx.transform.localPosition = Vector3.zero;
     }
 }

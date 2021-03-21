@@ -15,9 +15,12 @@ public class PlayerController : MonoBehaviour
     {
         GameEvents.Instance.onGameStart += EnablePlayerMovement;
         GameEvents.Instance.onFinishLineCrossed += DisablePlayerMovement;
+        GameEvents.Instance.onNextLevel += ResetPlayer;
     }
     void OnDestroy() {
+        GameEvents.Instance.onGameStart -= EnablePlayerMovement;
         GameEvents.Instance.onFinishLineCrossed -= DisablePlayerMovement;
+        GameEvents.Instance.onNextLevel -= ResetPlayer;
     }
 
     // Update is called once per frame
@@ -50,5 +53,8 @@ public class PlayerController : MonoBehaviour
 
     void DisablePlayerMovement(){
         running = false;
+    }
+    public void ResetPlayer(){
+        playerSideMovementPivot.transform.localPosition = Vector3.zero;
     }
 }

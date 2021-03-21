@@ -6,6 +6,8 @@ public class Ball : MonoBehaviour
 {
     [Range(1000,5000)]
     public float ballForce;
+    public Vector3 ballStartPosition;
+    public Vector3 ballPivotStartPosition;
     private Rigidbody rigidbody;
     private bool thrown = false;
     public GameObject playerReference;
@@ -27,11 +29,14 @@ public class Ball : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
 
         SetBallScale(ballScale);
+        ballPivotStartPosition = ballPivot.transform.localPosition;
+        ballStartPosition = transform.localPosition;
 
         GameEvents.Instance.onFinishLineCrossed += SetForKick;
         GameEvents.Instance.onGaugeForceApplied += SetBallForce;
         GameEvents.Instance.onBallObstacleHit += HandleBallObstacleHit;
         GameEvents.Instance.onWallObstacleHit += HandleWallObstacleHit;
+        GameEvents.Instance.onNextLevel += ResetBall;
     }
 
     void OnDestroy() {
@@ -40,6 +45,7 @@ public class Ball : MonoBehaviour
         GameEvents.Instance.onGaugeForceApplied -= SetBallForce;
         GameEvents.Instance.onBallObstacleHit -= HandleBallObstacleHit;
         GameEvents.Instance.onWallObstacleHit -= HandleWallObstacleHit;
+        GameEvents.Instance.onNextLevel -= ResetBall;
     }
 
     // Update is called once per frame
@@ -101,7 +107,6 @@ public class Ball : MonoBehaviour
 
     public void HandleBallObstacleHit(int ballType, float scaleValue, float ballForceValue){
         if(this.ballType == ballType){
-            Debug.Log("Increase Ball Size");
             ballScale += scaleValue;
 
             if(ballScale > maxBallScale){
@@ -111,7 +116,6 @@ public class Ball : MonoBehaviour
             GameEvents.Instance.GaugeForceUpdated(ballForceValue);
 
         }else{
-            Debug.Log("Decrease Ball Size");
             ballScale -= scaleValue;
 
             if(ballScale < minBallScale){
@@ -127,6 +131,17 @@ public class Ball : MonoBehaviour
     public void HandleWallObstacleHit(int wallType){
         ballType = wallType;
 
+        SetBallScale(ballScale);
+    }
+
+    public void ResetBall(){
+        ballScale = 1.5f;
+        rigidbody.isKinematic = true;
+        rigidbody.velocity = Vector3.zero;
+        ballPivot.transform.localPosition = ballPivotStartPosition;
+        transform.localPosition = ballStartPosition;
+        transform.localRotation = Quaternion.identity;
+        thrown = false;
         SetBallScale(ballScale);
     }
     

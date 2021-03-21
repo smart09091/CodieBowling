@@ -25,6 +25,7 @@ public class GaugeController : MonoBehaviour
         GameEvents.Instance.onGaugeForceUpdated += UpdateMaxForce;
         GameEvents.Instance.onFinishLineCrossed += ActivateGauge;
         GameEvents.Instance.onKickStart += ApplyMinimumForce;
+        GameEvents.Instance.onNextLevel += ResetGauge;
 
         UpdateGaugeGraphic();
         gaugeReference.gameObject.SetActive(false);
@@ -34,8 +35,10 @@ public class GaugeController : MonoBehaviour
     void OnDestroy() {
 
         GameEvents.Instance.onGameStart -= ShowGauge;
+        GameEvents.Instance.onGaugeForceUpdated -= UpdateMaxForce;
         GameEvents.Instance.onFinishLineCrossed -= ActivateGauge;
         GameEvents.Instance.onKickStart -= ApplyMinimumForce;
+        GameEvents.Instance.onNextLevel -= ResetGauge;
     }
     
     void Update(){
@@ -61,7 +64,7 @@ public class GaugeController : MonoBehaviour
     public void UpdateMaxForce(float value){
         gaugeMaxValue += value;
 
-        gaugeMaxValue = Mathf.Clamp(gaugeMaxValue, gaugeMinValue, gaugeMaxValue);
+        gaugeMaxValue = Mathf.Clamp(gaugeMaxValue, 1000f, 5000f);
         UpdateGaugeGraphic();
     }
 
@@ -93,5 +96,15 @@ public class GaugeController : MonoBehaviour
         forceApplied = true;
 
         GameEvents.Instance.GaugeForceApplied(gaugeReference.value);
+    }
+
+    public void ResetGauge(){
+        forceApplied = false;
+        gaugeActive = false;
+        gaugeReference.gameObject.SetActive(false);
+        gaugeSlideImage.gameObject.SetActive(false);
+        gaugeButtonReference.gameObject.SetActive(false);
+        gaugeMaxValue = 1250;
+        UpdateGaugeGraphic();
     }
 }

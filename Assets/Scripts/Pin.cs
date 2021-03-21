@@ -13,10 +13,12 @@ public class Pin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameEvents.Instance.onGeneratePinsFinished += EnablePinPhysics;
         GameEvents.Instance.onRoundFinished += DisabeRecordScore;
     }
     
     void OnDestroy() {
+        GameEvents.Instance.onGeneratePinsFinished -= EnablePinPhysics;
         GameEvents.Instance.onRoundFinished -= DisabeRecordScore;
     }
 
@@ -24,6 +26,14 @@ public class Pin : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void DisablePinPhysics(){
+        rigidbody.isKinematic = true;
+    }
+
+    public void EnablePinPhysics(){
+        rigidbody.isKinematic = false;
     }
 
     public void RecordScore(){
