@@ -19,6 +19,7 @@ public class GaugeController : MonoBehaviour
         increment = random.Next(2) == 1;
 
         GameEvents.Instance.onFinishLineCrossed += ShowGauge;
+        GameEvents.Instance.onKickStart += ApplyMinimumForce;
 
         gaugeReference.gameObject.SetActive(false);
         gaugeButtonReference.gameObject.SetActive(false);
@@ -45,6 +46,14 @@ public class GaugeController : MonoBehaviour
     public void ShowGauge(){
         gaugeReference.gameObject.SetActive(true);
         gaugeButtonReference.gameObject.SetActive(true);
+    }
+    public void ApplyMinimumForce(){
+        if(!forceApplied){
+            gaugeReference.value = gaugeMinValue;
+            GameEvents.Instance.GaugeForceApplied(gaugeReference.value);
+            forceApplied = true;
+            gaugeButtonReference.gameObject.SetActive(false);
+        }
     }
 
     public void ApplyForce(){

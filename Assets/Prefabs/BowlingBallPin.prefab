@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1980628836351901784}
   - component: {fileID: 1980628835675305910}
   - component: {fileID: 1980628835675305908}
+  - component: {fileID: 7932506047882685476}
   m_Layer: 0
   m_Name: BowlingBallPin
   m_TagString: Untagged
@@ -26,12 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980628836344656416}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 7.69, y: 8.477755, z: -3.0998077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1980628836344164290}
   - {fileID: 1980628836344163998}
+  - {fileID: 237800075800962142}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -81,8 +83,20 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.461032, y: 1.9504547, z: 0.48469543}
-  m_Center: {x: -0.018926844, y: 0.9447284, z: -0.0057258606}
+  m_Size: {x: 0.461032, y: 1.9249978, z: 0.48469543}
+  m_Center: {x: -0.018926844, y: 0.9574568, z: -0.0057258606}
+--- !u!114 &7932506047882685476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980628836344656416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e71345f4ca3b11478144cf4c36f14a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1980628836344656418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,3 +2152,61 @@ Transform:
   m_Father: {fileID: 1980628836344164340}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6292170528662813161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 237800075800962142}
+  - component: {fileID: 8230399226312283020}
+  - component: {fileID: 6438244126675790778}
+  m_Layer: 0
+  m_Name: GroundedCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &237800075800962142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6292170528662813161}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1980628836344164288}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8230399226312283020
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6292170528662813161}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21509123, y: 0.24054718, z: 0.2235763}
+  m_Center: {x: 0.0063636303, y: -0.120918274, z: 0.031820655}
+--- !u!114 &6438244126675790778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6292170528662813161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d56e6bb069342f49a7716d8723a5685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pinReference: {fileID: 7932506047882685476}

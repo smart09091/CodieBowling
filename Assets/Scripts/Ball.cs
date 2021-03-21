@@ -57,6 +57,9 @@ public class Ball : MonoBehaviour
 
     public void PerformKick(){
         Debug.Log("PerformKick");
+        
+        GameEvents.Instance.KickStart();
+
         if(!thrown){
            thrown = true;
            rigidbody.isKinematic = false;
